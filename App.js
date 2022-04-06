@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, BackHandler } from 'react-native';
+import React, { useState, useEffect } from 'react'; // This React Package taht is store varibale and make logic in code
+import { StyleSheet, Text, View, TextInput, Button, BackHandler } from 'react-native';  // This React Native mobile user intreface Like Text and buttons and so on
 
 
 
-const App = () => {
+const App = () => { // This function is by default create React team if you think I remove this function than your app crashed so do not touch this 
 
-  const [inputValue, setInputValue] = useState('') // This veriable in React and javaScript 
-  const [target, setTarget] = useState([])
-  const [score, setScore] = useState(0)
-  const [timer, setTimer] = useState(30)
+  const [inputValue, setInputValue] = useState('') // This variable taht is store input value when you answer the question 
+  const [target, setTarget] = useState([]) // This variable store Random Math quiz as empty array 
+  const [score, setScore] = useState(0) // This variable store score by default score 0
+  const [timer, setTimer] = useState(30) // This variable play timer 
 
 
 
 
   const newQuestion = () => { // This function is generate random number between 1 to 10 every time this function re run when a user give the correct answer and this function generate a new random number
-    const minimum = 1;
-    const maximum = 10;
-    const int1 = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-    const int2 = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
-    setTarget([int1, int2])
+    const minimum = 1; // This variable  mean the random math quiz never go form less tahn 0  
+    const maximum = 10; // This variable  mean the random math quiz never go form  above to  10 or 15   
+    const int1 = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum; // This is pure JavaScript method that is create random number
+    const int2 = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum; // This is pure JavaScript method that is create random number
+    setTarget([int1, int2]) // This is function hold int , int2 to dispaly on the screen
   }
 
   useEffect(() => { // This not a custom function it is ready made React function and it is very importent when the screen change the text
@@ -31,7 +31,7 @@ const App = () => {
     newQuestion()
     return () => clearInterval(interval)
 
-    const backHandler = BackHandler.addEventListener(
+    const backHandler = BackHandler.addEventListener( // This Function allow to exit the app
       "hardwareBackPress",
 
     );
@@ -63,18 +63,19 @@ const App = () => {
   }
 
 
-  const handleReset = () => {
+  const handleReset = () => { //  I add additional function that is allow user to play again the game 
     setScore(0)
-    setTimer(20)
+    setTimer(30)
 
   }
 
   return (
 
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#F900BF' }}>Random Math Quiz</Text>
       <Text style={{ fontSize: 16, color: '#F900BF' }}> {target.join(' + ')} </Text>
       <Text style={{ fontSize: 16, color: '#F900BF' }}> Timer:  {timer} </Text>
+      
       <TextInput
         style={styles.textInput}
         keyboardType="number-pad"
@@ -92,15 +93,16 @@ const App = () => {
       <Button style={styles.button} title='Play Again' onPress={handleReset} />
       </View>
 
-      {score === 10 && <Text style={{ fontSize: 16, color: '#F900BF' }}> Score: {score} Congrate you are master in Math!</Text>}
+      { score === 10  && <Text style={{ fontSize: 32, color: '#F900BF', textAlign: 'center' }}>  (Score: 10 / {score}) Congrate you are master in Math!</Text>}
+      { (score <= 9 && timer < 1)  && <Text style={{ fontSize: 32, color: '#F900BF', textAlign: 'center' }}> ( Score: 10 / {score}) Oh boy this is the  math class!</Text>}
 
     </View>
 
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
+const styles = StyleSheet.create({ // This is the style the app like font size and position and so on so far
+  container: { 
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
